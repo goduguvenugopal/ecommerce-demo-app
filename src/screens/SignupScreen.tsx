@@ -1,29 +1,31 @@
 import React, { useState } from 'react';
 
-import { View, Text, StyleSheet, ImageBackground } from 'react-native';
+import { View, Text, ImageBackground } from 'react-native';
 
 import { SafeAreaView } from 'react-native-safe-area-context';
-
 import CustomInput from '../components/common/CustomInput';
 import CustomButton from '../components/common/CustomButton';
-import styles from '../styles/loginStyles';
+import styles from '../styles/SignUpStyles';
 
-const LoginScreen = ({ navigation }: any) => {
+const SignupScreen = ({ navigation }: any) => {
+  // Full name state
+  const [name, setName] = useState('');
+
   // Email state
   const [email, setEmail] = useState('');
 
   // Password state
   const [password, setPassword] = useState('');
 
-  // Login handler
-  const handleLogin = () => {
+  // Signup handler
+  const handleSignup = () => {
+    console.log(name);
     console.log(email);
     console.log(password);
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      {/* Background image */}
+    <SafeAreaView style={styles.safeArea}>
       <ImageBackground
         source={require('../assets/images/login-bg.jpg')}
         style={styles.background}
@@ -31,31 +33,38 @@ const LoginScreen = ({ navigation }: any) => {
       >
         {/* Dark overlay */}
         <View style={styles.overlay}>
-          {/* App title */}
+          {/* Title */}
           <Text style={styles.title}>Fashion Store</Text>
 
-          {/* Email input */}
+          {/* Name Input */}
+          <CustomInput
+            placeholder="Enter full name"
+            value={name}
+            onChangeText={setName}
+          />
+
+          {/* Email Input */}
           <CustomInput
             placeholder="Enter email"
             value={email}
             onChangeText={setEmail}
           />
 
-          {/* Password input */}
+          {/* Password Input */}
           <CustomInput
             placeholder="Enter password"
+            secureTextEntry
             value={password}
             onChangeText={setPassword}
-            secureTextEntry
           />
 
-          {/* Login button */}
-          <CustomButton title="Login" onPress={handleLogin} />
+          {/* Signup Button */}
+          <CustomButton title="Signup" onPress={handleSignup}></CustomButton>
           <Text
             style={styles.linkText}
-            onPress={() => navigation.navigate('Signup')}
+            onPress={() => navigation.navigate('Login')}
           >
-            Don't have an account? Signup
+            Already have an account? Login
           </Text>
         </View>
       </ImageBackground>
@@ -63,4 +72,4 @@ const LoginScreen = ({ navigation }: any) => {
   );
 };
 
-export default LoginScreen;
+export default SignupScreen;
