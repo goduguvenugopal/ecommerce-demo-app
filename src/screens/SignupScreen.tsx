@@ -6,6 +6,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import CustomInput from '../components/common/CustomInput';
 import CustomButton from '../components/common/CustomButton';
 import styles from '../styles/SignUpStyles';
+import { saveUser } from '../storage/authStorage';
 
 const SignupScreen = ({ navigation }: any) => {
   // Full name state
@@ -18,10 +19,20 @@ const SignupScreen = ({ navigation }: any) => {
   const [password, setPassword] = useState('');
 
   // Signup handler
-  const handleSignup = () => {
-    console.log(name);
-    console.log(email);
-    console.log(password);
+  const handleSignup = async () => {
+    try {
+      const user = {
+        name,
+        email,
+        password,
+      };
+
+      await saveUser(user);
+      navigation.navigate('Login');
+      console.log('User Saved');
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
