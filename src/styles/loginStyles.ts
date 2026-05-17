@@ -7,8 +7,6 @@ const styles = StyleSheet.create({
 
   container: {
     flex: 1,
-    backgroundColor: 'rgba(175, 8, 209, 0.27)',
-    paddingTop: 5,
   },
 
   overlay: {

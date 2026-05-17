@@ -3,9 +3,6 @@ import { StyleSheet } from 'react-native';
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-
-    paddingTop: 5,
-    backgroundColor: 'rgba(175, 8, 209, 0.27)',
   },
 
   background: {

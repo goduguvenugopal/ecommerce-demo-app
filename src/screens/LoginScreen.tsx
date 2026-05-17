@@ -1,24 +1,52 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
-import { View, Text, StyleSheet, ImageBackground } from 'react-native';
+import { View, Text, StyleSheet, ImageBackground, Alert } from 'react-native';
 
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import CustomInput from '../components/common/CustomInput';
 import CustomButton from '../components/common/CustomButton';
 import styles from '../styles/loginStyles';
+import { getUser, User } from '../storage/authStorage';
+import { showSuccessToast } from '../utils/toast';
 
 const LoginScreen = ({ navigation }: any) => {
   // Email state
   const [email, setEmail] = useState('');
-
   // Password state
   const [password, setPassword] = useState('');
 
+  const fetchUser = async () => {
+    try {
+      const user: User = await getUser();
+
+      if (user) {
+        setEmail(user.email);
+        setPassword(user.password);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchUser();
+  }, []);
+
   // Login handler
-  const handleLogin = () => {
-    console.log(email);
-    console.log(password);
+  const handleLogin = async () => {
+    try {
+      const user: User = await getUser();
+
+      if (user.email === email && user.password === password) {
+        showSuccessToast('Login Successful', 'Welcome back 👋');
+        navigation.replace('Main');
+      } else {
+        Alert.alert('Warning', 'You have entered wrong credentials');
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -48,6 +76,10 @@ const LoginScreen = ({ navigation }: any) => {
             onChangeText={setPassword}
             secureTextEntry
           />
+
+          <Text style={{ color: 'white' }} onPress={fetchUser}>
+            User Credentials
+          </Text>
 
           {/* Login button */}
           <CustomButton title="Login" onPress={handleLogin} />

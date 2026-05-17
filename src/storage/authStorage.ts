@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-interface User {
+export interface User {
   name: string;
   email: string;
   password: string;
@@ -24,7 +24,7 @@ export const saveUser = async (user: User) => {
 export const getUser = async () => {
   try {
 
-    const user = await AsyncStorage.getItem('user');
+    const user:any = await AsyncStorage.getItem('user');
 
     // Convert string back to object
     return user != null ? JSON.parse(user) : null;

@@ -7,6 +7,7 @@ import CustomInput from '../components/common/CustomInput';
 import CustomButton from '../components/common/CustomButton';
 import styles from '../styles/SignUpStyles';
 import { saveUser } from '../storage/authStorage';
+import { showSuccessToast } from '../utils/toast';
 
 const SignupScreen = ({ navigation }: any) => {
   // Full name state
@@ -28,6 +29,8 @@ const SignupScreen = ({ navigation }: any) => {
       };
 
       await saveUser(user);
+      showSuccessToast('Signed up Successful', 'Welcome back 👋');
+
       navigation.navigate('Login');
       console.log('User Saved');
     } catch (error) {
