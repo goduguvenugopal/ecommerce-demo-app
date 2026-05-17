@@ -20,12 +20,9 @@ const Stack = createNativeStackNavigator();
 
 const Tab = createBottomTabNavigator();
 
- 
-
 // Bottom Tabs
 const BottomTabs = () => {
-
-   const insets = useSafeAreaInsets();
+  const insets = useSafeAreaInsets();
 
   return (
     <Tab.Navigator
@@ -82,6 +79,7 @@ const AppNavigator = () => {
         <Stack.Screen name="Login" component={LoginScreen} />
 
         <Stack.Screen name="Signup" component={SignupScreen} />
+        <Stack.Screen name="Cart" component={CartScreen} />
 
         {/* Main App */}
         <Stack.Screen name="Main" component={BottomTabs} />
